@@ -9,34 +9,13 @@
     <%= @article.text %>
 </p>
 
-<h2 style="color:navy;">Comments</h2>
-<% @article.comments.each do |comment| %>
-  <p>
-    <strong>Commenter:</strong>
-    <%= comment.commenter %>
-  </p> 
-  <p>
-    <strong>Comment:</strong>
-    <%= comment.body %>
-  </p>
-  <div style="border-bottom: solid 2px gray; width: 800px;"></div>
-<% end %>
+<h2 style="color:navy;">Comments (<%= @article.comments.count %>)</h2>
+<%= render @article.comments %>
+
 <br />
 <div style="background-color: #efeff5; width: 800px; padding-top: 1px; padding-left: 5px; padding-bottom: 5px;">
-<h2>Add a comment:</h2>
-<%= form_with(model: [ @article, @article.comments.build ], remote: true) do |form| %>
-    <p>
-        <%= form.label :commenter %><br/>
-        <%= form.text_field :commenter %>
-    </p>
-    <p>
-        <%= form.label :body %><br/>
-        <%= form.text_area :body %>
-    </p>
-    <p>
-        <%= form.submit %>
-    </p>
-<% end %>
+  <h2>Add a comment:</h2>
+  <%= render 'comments/form' %>
 </div>
 <br />
 <%= link_to 'Edit', edit_article_path(@article) %> |
